@@ -13,7 +13,7 @@ header {
 
 section {
     min-height: 100vh;
-    background-color: wheat;
+    background-color: black;
     padding-top: 160px;
 }
 
@@ -33,7 +33,7 @@ section {
     width: 80%;
     height: 40px;
     font-size: 30px;
-    background-color: brown;
+    background-color: black;
     margin: 20px;
     color: white;
 }
@@ -127,4 +127,13 @@ section {
     height: 2px;
     background-color: rgba(236, 236, 236, 0.466);
     transition: 0.3s;
+}
+
+.project-container:hover .project-hamburger>div:first-child {
+    width: 50%;
+}
+
+.project-container:hover .project-hamburger>div:last-child {
+    width: 50%;
+    animation-direction: reverse;
 }
