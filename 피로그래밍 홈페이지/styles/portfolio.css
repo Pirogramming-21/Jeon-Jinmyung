@@ -1,0 +1,82 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+main {
+    min-height: 100vh;
+    background-color: wheat;
+}
+
+#portfolio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--header-height);
+    flex-direction: column;
+}
+
+.portfolio-th {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 30px;
+    background-color: brown;
+    margin: 20px;
+}
+
+.project-container {
+    width: 100%;
+    background-color: aqua;
+    border-radius: 10px;
+    padding: var(--gutter);
+    display: flex;
+    gap: var(--gutter);
+    margin-bottom: var(--gutter);
+    cursor: pointer;
+    position: relative;
+}
+
+.project-pic img {
+    width: 150px;
+    height: 130px;
+    object-fit: contain;
+    transition: 0.3s;
+    padding: 1rem 2rem;
+    background-color: aliceblue;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.project-content--name {
+    font-size: 2.2rem;
+    font-weight: 900;
+}
+
+.project-content--introduction {
+    font-size: 1.6rem;
+    color: #c6c6c6;
+    line-height: 2rem;
+    word-break: keep-all;
+}
+
+.project-content--team {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.project-content--team li {
+    background-color: rgba(236, 236, 236, 0.466);
+    padding: 6px 8px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    color: black;
+}
