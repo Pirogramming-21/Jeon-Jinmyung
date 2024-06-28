@@ -3,9 +3,18 @@ body {
     color: white;
 }
 
-main {
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: black;
+    padding: 10px 0;
+}
+
+section {
     min-height: 100vh;
     background-color: wheat;
+    padding-top: 160px;
 }
 
 #portfolio {
@@ -14,6 +23,7 @@ main {
     align-items: center;
     height: var(--header-height);
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .portfolio-th {
@@ -39,7 +49,7 @@ main {
 
 .project-container {
     width: 80%;
-    background-color: aqua;
+    background-color: #333333;
     border-radius: 10px;
     padding: var(--gutter);
     display: flex;
@@ -47,7 +57,13 @@ main {
     margin-bottom: var(--gutter);
     cursor: pointer;
     position: relative;
+    transition: transform 0.2s;
 }
+
+.project-container:hover {
+    transform: translateY(-2px);
+}
+
 
 .project-pic img {
     width: 150px;
@@ -56,6 +72,10 @@ main {
     transition: 0.3s;
     padding: 1rem 2rem;
     background-color: aliceblue;
+}
+
+.project-container:hover .project-pic img {
+    transform: scale(1.1);
 }
 
 .project-content {
