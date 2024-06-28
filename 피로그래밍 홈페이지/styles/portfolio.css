@@ -20,15 +20,25 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 80%;
     height: 40px;
     font-size: 30px;
     background-color: brown;
     margin: 20px;
+    color: white;
+}
+
+.portfolio-th div {
+    flex: 1;
+    text-align: center;
+}
+
+.portfolio-th--curr {
+    font-weight: bold;
 }
 
 .project-container {
-    width: 100%;
+    width: 80%;
     background-color: aqua;
     border-radius: 10px;
     padding: var(--gutter);
