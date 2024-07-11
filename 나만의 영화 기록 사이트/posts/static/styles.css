@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.review-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.review-item {
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+    width: calc(25% - 40px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.review-item:hover {
+    transform: scale(1.05);
+}
+
+.review-item a {
+    text-decoration: none;
+    color: #ff4391;
+}
+
+.review-item h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.review-item p {
+    margin: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.movie-text {
+    color: rgb(243, 105, 169);
+}
+
+.label {
+    color: #9b9898;
+    /* 라벨 색상 */
+}
+
+.value {
+    color: #000;
+    /* 값 색상 */
+}

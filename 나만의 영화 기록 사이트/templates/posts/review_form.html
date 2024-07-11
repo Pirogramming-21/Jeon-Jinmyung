@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if review %}리뷰 수정{% else %}리뷰 작성{% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>{% if review %}리뷰 수정{% else %}리뷰 작성{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">제목:</label>
+        <input type="text" id="title" name="title" value="{% if review %}{{ review.title }}{% endif %}"><br>
+
+        <label for="director">감독:</label>
+        <input type="text" id="director" name="director" value="{% if review %}{{ review.director }}{% endif %}"><br>
+
+        <label for="actors">주연:</label>
+        <textarea id="actors" name="actors">{% if review %}{{ review.actors }}{% endif %}</textarea><br>
+
+        <label for="release_year">개봉 년도:</label>
+        <input type="number" id="release_year" name="release_year" value="{% if review %}{{ review.release_year }}{% endif %}"><br>
+
+        <label for="genre">장르:</label>
+        <input type="text" id="genre" name="genre" value="{% if review %}{{ review.genre }}{% endif %}"><br>
+
+        <label for="rating">별점:</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" value="{% if review %}{{ review.rating }}{% endif %}"><br>
+
+        <label for="runtime">러닝타임:</label>
+        <input type="number" id="runtime" name="runtime" value="{% if review %}{{ review.runtime }}{% endif %}"><br>
+
+        <label for="content">내용:</label>
+        <textarea id="content" name="content">{% if review %}{{ review.content }}{% endif %}</textarea><br>
+
+        <button type="submit">저장</button>
+    </form>
+    <a href="{% url 'posts:review_list' %}">리뷰 리스트로 돌아가기</a>
+</body>
+</html>

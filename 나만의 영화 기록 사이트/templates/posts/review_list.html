@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <h1>my <span class="movie-text">Movie</span> reviews</h1>
+        <a href="{% url 'posts:review_create' %}">Add a New review</a>
+    </div>
+    <div class="container">
+        <h1>Review List</h1>
+        <div class="review-list">
+            {% for review in reviews %}
+                <div class="review-item">
+                    <h2><a href="{% url 'posts:review_detail' review.id %}">{{ review.title }}</a></h2>
+                    <p><span class="label">개봉년도</span> <span class="value">{{ review.release_year }}년</span></p>
+                    <p><span class="label">장르</span> <span class="value">{{ review.genre }}</span></p>
+                    <p><span class="label">별점</span> <span class="value">{{ review.rating }}</span></p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
