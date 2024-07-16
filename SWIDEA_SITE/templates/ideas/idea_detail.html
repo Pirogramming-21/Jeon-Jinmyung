@@ -1,32 +1,21 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idea Detail</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="{% url 'idea_list' %}">아이디어 관리</a>
-            <a href="{% url 'idea_register' %}">아이디어 등록</a>
-            <a href="{% url 'devtool_list' %}">개발툴 관리</a>
-        </nav>
-    </header>
-    <main>
-        <h1>{{ idea.title }}</h1>
-        <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
-        <p>{{ idea.content }}</p>
-        <p>예상 개발 툴: <a href="{% url 'devtool_detail' pk=idea.devtool.pk %}">{{ idea.devtool.name }}</a></p>
-        <p>아이디어 관심도: +{{ idea.interest }}</p>
-        <a href="{% url 'idea_edit' pk=idea.pk %}">수정</a>
-        <form method="post" action="{% url 'idea_delete' pk=idea.pk %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">삭제</button>
-        </form>
-        <a href="{% url 'idea_list' %}">목록으로 돌아가기</a>
-    </main>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Idea Detail{% endblock %}
+
+{% block content %}
+<h1>{{ idea.title }}</h1>
+<img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+<p>{{ idea.content }}</p>
+<p>Interest: {{ idea.interest }}</p>
+<p>DevTool: {{ idea.devtool.name }}</p>
+<p>Created at: {{ idea.created_at }}</p>
+<p>Updated at: {{ idea.updated_at }}</p>
+
+<a href="{% url 'idea_list' %}"><button>목록</button></a>
+<a href="{% url 'idea_edit' idea.pk %}"><button>수정</button></a>
+<form action="{% url 'idea_delete' idea.pk %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">삭제</button>
+</form>
+{% endblock %}
+

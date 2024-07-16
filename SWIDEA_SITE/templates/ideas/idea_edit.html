@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Idea{% endblock %}
+
+{% block content %}
+<h1>Edit Idea</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'idea_detail' idea.pk %}"><button>Cancel</button></a>
+{% endblock %}
+
