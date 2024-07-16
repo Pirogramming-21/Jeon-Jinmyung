@@ -41,3 +41,18 @@ def idea_delete(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
     idea.delete()
     return redirect('idea_list')
+
+def devtool_register(request):
+    if request.method == "POST":
+        form = DevToolForm(request.POST, request.FILES)
+        if form.is_valid():
+            devtool = form.save(commit=False)
+            devtool.save()
+            return redirect('idea_list')  
+    else:
+        form = DevToolForm()
+    return render(request, 'ideas/devtool_register.html', {'form': form})
+
+def devtool_list(request):
+    devtools = DevTool.objects.all()
+    return render(request, 'ideas/devtool_list.html', {'devtools': devtools})

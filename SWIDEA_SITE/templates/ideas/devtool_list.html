@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}개발툴 목록{% endblock %}
+
+{% block content %}
+<h1>개발툴 목록</h1>
+<ul>
+    {% for devtool in devtools %}
+    <li>{{ devtool.name }} - {{ devtool.kind }} - {{ devtool.content }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
