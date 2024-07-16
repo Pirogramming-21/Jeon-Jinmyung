@@ -1,5 +1,3 @@
-# SWIDEA 사이트 과제 완성도 설명
-
 ## Current Progress..
 
 1 O
