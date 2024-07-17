@@ -1,34 +1,58 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Idea List{% endblock %}
 
 {% block content %}
-        <h1>Idea List</h1>
-        <form method="get" id="sortForm">
-            <select name="sort" onchange="document.getElementById('sortForm').submit();">
-                <option value="">--정렬기준--</option>
-                <option value="stars" {% if request.GET.sort == "stars" %}selected{% endif %}>찜하기순</option>
-                <option value="created_at" {% if request.GET.sort == "created_at" %}selected{% endif %}>등록순</option>
-                <option value="-created_at" {% if request.GET.sort == "-created_at" %}selected{% endif %}>최신순</option>
-                <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>이름순</option>
-            </select>
-        </form>
-        <div class="container">
-            {% for idea in ideas %}
-            <div class="card">
-                <a href="{% url 'idea_detail' pk=idea.pk %}">
-                    <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
-                    <h2 href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</h2>
-                </a>
-                <p>예상 개발 툴: {{ idea.devtool.name }}</p>
-                <p id="interest-{{ idea.id }}">아이디어 관심도: +{{ idea.interest }}</p>
-            </div>
-            {% endfor %}
+<h1>Idea List</h1>
+<form method="get" id="sortForm">
+    <select name="sort" onchange="document.getElementById('sortForm').submit();">
+        <option value="">--정렬기준--</option>
+        <option value="stars" {% if request.GET.sort == "stars" %}selected{% endif %}>찜하기순</option>
+        <option value="created_at" {% if request.GET.sort == "created_at" %}selected{% endif %}>등록순</option>
+        <option value="-created_at" {% if request.GET.sort == "-created_at" %}selected{% endif %}>최신순</option>
+        <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>이름순</option>
+    </select>
+</form>
+<div class="container">
+    {% for idea in page_obj %}
+    <div class="card">
+        <a href="{% url 'idea_detail' pk=idea.pk %}">
+            <img src="{{ idea.image.url }}" alt="{{ idea.title }}">
+        </a>
+        <div class="title-container">
+            <h2>{{ idea.title }}</h2>
+            <a href="{% url 'toggle_star' idea.pk %}" class="star-toggle">
+                {% if idea.is_starred %}
+                    <img src="{% static 'images/star-fill.png' %}" alt="Star" class="star-icon">
+                {% else %}
+                    <img src="{% static 'images/star-line.png' %}" alt="Star" class="star-icon">
+                {% endif %}
+            </a>
         </div>
-        <div class="pagination">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-        </div>
+        <p>예상 개발 툴: {{ idea.devtool.name }}</p>
+        <p id="interest-{{ idea.id }}">아이디어 관심도: +{{ idea.interest }}</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if sort_option %}&sort={{ sort_option }}{% endif %}">첫 페이지</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if sort_option %}&sort={{ sort_option }}{% endif %}">이전</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if sort_option %}&sort={{ sort_option }}{% endif %}">다음</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if sort_option %}&sort={{ sort_option }}{% endif %}">마지막 페이지</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
+
+
 

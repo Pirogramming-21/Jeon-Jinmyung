@@ -1,5 +1,3 @@
-/* static/css/styles.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -55,6 +53,7 @@ h1 {
 .card h2 {
     font-size: 1.2em;
     color: #333;
+    display: inline;
 }
 
 .card p {
@@ -97,4 +96,21 @@ select {
 
 .pagination a:hover {
     background-color: #ddd;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.star-toggle {
+    margin-left: 10px;
+}
+
+.star-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }

@@ -2,14 +2,20 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Idea, DevTool, IdeaStar
 from .forms import IdeaForm, DevToolForm
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 def idea_list(request):
-    sort_option = request.GET.get('sort', '-created_at')  # 기본 정렬 옵션을 최신순으로 설정
+    sort_option = request.GET.get('sort', '-created_at')
     if sort_option == 'stars':
         ideas = Idea.objects.annotate(star_count=Count('ideastar')).order_by('-star_count')
     else:
         ideas = Idea.objects.all().order_by(sort_option)
-    return render(request, 'ideas/idea_list.html', {'ideas': ideas})
+    
+    paginator = Paginator(ideas, 4)  # 페이지당 4개의 게시물
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'ideas/idea_list.html', {'page_obj': page_obj, 'sort_option': sort_option})
 
 def idea_detail(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
@@ -48,7 +54,7 @@ def devtool_register(request):
         if form.is_valid():
             devtool = form.save(commit=False)
             devtool.save()
-            return redirect('idea_list')  
+            return redirect('devtool_list')  
     else:
         form = DevToolForm()
     return render(request, 'ideas/devtool_register.html', {'form': form})
@@ -56,3 +62,30 @@ def devtool_register(request):
 def devtool_list(request):
     devtools = DevTool.objects.all()
     return render(request, 'ideas/devtool_list.html', {'devtools': devtools})
+
+def devtool_detail(request, pk):
+    devtool = get_object_or_404(DevTool, pk=pk)
+    return render(request, 'ideas/devtool_detail.html', {'devtool': devtool})
+
+def devtool_edit(request, pk):
+    devtool = get_object_or_404(DevTool, pk=pk)
+    if request.method == "POST":
+        form = DevToolForm(request.POST, request.FILES, instance=devtool)
+        if form.is_valid():
+            form.save()
+            return redirect('devtool_detail', pk=devtool.pk)
+    else:
+        form = DevToolForm(instance=devtool)
+    return render(request, 'ideas/devtool_edit.html', {'form': form, 'devtool': devtool})
+
+def devtool_delete(request, pk):
+    devtool = get_object_or_404(DevTool, pk=pk)
+    devtool.delete()
+    return redirect('devtool_list')
+
+def toggle_star(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    idea_star, created = IdeaStar.objects.get_or_create(idea=idea)
+    if not created:
+        idea_star.delete()
+    return redirect('idea_list')
