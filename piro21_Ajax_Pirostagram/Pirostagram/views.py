@@ -53,7 +53,13 @@ def post_detail(request, pk):
         'dislikes': post.dislike  # 싫어요 수
     }
     return render(request, 'Pirostagram/post_detail.html', context)
-    
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.method == 'POST':
+        comment.delete()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'fail'}, status=400)    
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse

@@ -16,8 +16,9 @@
         <h2>댓글 목록</h2>
         <div class="comments">
             {% for comment in comments %}
-                <div class="comment">
+                <div class="comment" id="comment-{{ comment.id }}">
                     <p><span class="comment-author">{{ comment.author }}</span>: {{ comment.text }}</p>
+                    <button class="delete-comment" data-id="{{ comment.id }}">삭제</button>
                 </div>
             {% endfor %}
         </div>
@@ -32,4 +33,71 @@
 
         <a href="{% url 'Pirostagram:post_list' %}" class="back-button">돌아가기</a>
     </div>
+{% endblock %}
+
+{% block extra %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // CSRF 토큰 설정 함수
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
+
+    const onClickLike = async(id, type) => {
+        const url = "/like_ajax/";
+        const { data } = await axios.post(url, {
+            id,
+            type,
+        });
+        likeHandleResponse(data.id, data.type);
+    }
+
+    const likeHandleResponse = (id, type) => {
+        const element = document.querySelector(`.post-id-${id} .post__${type}`);
+        const originHTML = element.innerHTML;
+        const [buttonType, num] = originHTML.split(" ");
+        const count = Number(num) + 1;
+
+        element.innerHTML = `${buttonType} ${count}`;
+    }
+
+    document.querySelectorAll('.delete-comment').forEach(button => {
+        button.addEventListener('click', async () => {
+            const commentId = button.getAttribute('data-id');
+            const url = `/delete_comment/${commentId}/`;
+            try {
+                const { data } = await axios.post(url);
+                if (data.status === 'success') {
+                    const commentElement = document.getElementById(`comment-${commentId}`);
+                    if (commentElement) {
+                        commentElement.remove();
+                    } else {
+                        console.error(`Element with ID comment-${commentId} not found.`);
+                    }
+                } else {
+                    alert('댓글 삭제에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                alert('댓글 삭제 중 오류가 발생했습니다.');
+            }
+        });
+    });
+</script>
 {% endblock %}

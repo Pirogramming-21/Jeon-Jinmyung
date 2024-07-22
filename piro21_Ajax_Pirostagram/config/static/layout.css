@@ -39,6 +39,12 @@ header {
     flex-direction: row;
 }
 
+.card-title {
+    font-weight: bolder;
+}
+
+/* 왜 적용이 안되는거임?? */
+
 .post__container {
     display: flex;
     flex-direction: column;
@@ -108,4 +114,41 @@ header {
 
 .back-button:hover {
     background-color: #0056b3;
+}
+
+/* search-form 스타일 추가 */
+.search-form {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-left: 25px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }

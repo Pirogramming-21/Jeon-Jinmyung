@@ -9,5 +9,6 @@ urlpatterns = [
     path('like_ajax/', views.like_ajax, name='like_ajax'),
     # path('post_detail/', views.post_detail, name='post_detail'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     
 ]
